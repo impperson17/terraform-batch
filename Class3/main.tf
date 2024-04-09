@@ -24,8 +24,14 @@ resource "aws_instance" "web" {
   #availability_zone = "us-east-2a"
   #subnet_id = "subnet-0c2f142672eac68a7"
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
-  
-  tags = {
-    Name = "HelloWorld"
-  }
+  key_name = aws_key_pair.deployer.key_name
+  count = 3
+  user_data = file("apache.sh")
+  user_data_replace_on_change = true 
+
+  tags =local.common_tags
+}
+
+output ec2 {
+  value = aws_instance.web[*].public_ip
 }
