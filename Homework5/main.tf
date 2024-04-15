@@ -34,7 +34,6 @@ resource "aws_subnet" "public2" {
   }
 }
 
-
 resource "aws_subnet" "private1" {
   vpc_id            = aws_vpc.kaizen.id
   cidr_block        = var.subnets[2].cidr_block
@@ -45,7 +44,6 @@ resource "aws_subnet" "private1" {
     Name = var.subnets[2].name
   }
 }
-
 
 resource "aws_subnet" "private2" {
   vpc_id            = aws_vpc.kaizen.id
@@ -58,7 +56,6 @@ resource "aws_subnet" "private2" {
   }
 }
 
-
 resource "aws_internet_gateway" "homework5_igw" {
   vpc_id = aws_vpc.kaizen.id
 
@@ -66,7 +63,6 @@ resource "aws_internet_gateway" "homework5_igw" {
     Name = var.internet_gateway_name
   }
 }
-
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.kaizen.id
@@ -76,7 +72,6 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
-
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.kaizen.id
 
@@ -84,7 +79,6 @@ resource "aws_route_table" "private_rt" {
     Name = "${var.route_table_names[1]}"
   }
 }
-
 
 resource "aws_route" "public_subnet_route" {
   route_table_id         = aws_route_table.public_rt.id
@@ -94,24 +88,20 @@ resource "aws_route" "public_subnet_route" {
   depends_on = [aws_internet_gateway.homework5_igw]
 }
 
-
 resource "aws_route_table_association" "public1_association" {
   subnet_id      = aws_subnet.public1.id
   route_table_id = aws_route_table.public_rt.id
 }
-
 
 resource "aws_route_table_association" "public2_association" {
   subnet_id      = aws_subnet.public2.id
   route_table_id = aws_route_table.public_rt.id
 }
 
-
 resource "aws_route_table_association" "private1_association" {
   subnet_id      = aws_subnet.private1.id
   route_table_id = aws_route_table.private_rt.id
 }
-
 
 resource "aws_route_table_association" "private2_association" {
   subnet_id      = aws_subnet.private2.id
