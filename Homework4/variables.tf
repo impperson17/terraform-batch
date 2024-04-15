@@ -31,7 +31,7 @@ variable ports {
 variable availability_zone {
   description = "provide az"
   default = ""
-  type = string
+  type = string 
 }
 
 variable "ec2_count" {
